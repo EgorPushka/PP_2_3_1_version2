@@ -1,10 +1,23 @@
 package web.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "user_name")
     private String name;
+
+    @Column(name = "user_age")
     private int age;
+
+    @Column(name = "user_email")
     private  String email;
 
     public User() {
