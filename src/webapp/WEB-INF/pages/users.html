@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>USERS HTML</title>
+    <style>
+        table {
+            width: 50%; /* Ширина таблицы */
+            background: red; /* Цвет фона таблицы */
+            color: black; /* Цвет текста */
+            border-spacing: 2px; /* Расстояние между ячейками */
+        }
+
+        td, th {
+            background: aliceblue; /* Цвет фона ячеек *!*/
+            padding: 2px; /* Поля вокруг текста */
+            text-align: left;
+            width: 25%;
+        }
+
+        button {
+            width: 50px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<table>
+    <caption>User List</caption>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="user : ${users}">
+
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td>
+            <div style="display: inline-block;">
+                <form th:method="GET" th:action="@{/user/{id}(id=${user.getId()})}">
+                    <!--                    <input type="submit" value="Detail">-->
+                    <button type="submit" value="Detail">Detail</button>
+                </form>
+            </div>
+
+            <div style="display: inline-block;">
+                <form th:method="GET" th:action="@{/user/{id}/edit(id=${user.getId()})}">
+                    <button type="submit" value="Edit">Edit</button>
+                </form>
+            </div>
+            <div style="display: inline-block;">
+                <form th:method="DELETE" th:action="@{/user/{id}(id=${user.getId()})}">
+                    <button type="submit" value="Delete">Delete</button>
+                </form>
+            </div>
+
+        </td>
+    </tr>
+</table>
+<h2><a href="/new">Add User</a></h2>
+</body>
+</html>
