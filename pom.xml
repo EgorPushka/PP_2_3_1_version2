@@ -16,6 +16,7 @@
 
     <dependencies>
 
+        <!--WEB WEB WEB WEB-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -43,7 +44,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.4</version>
+                    <!--                    <version>2.4</version>-->
                     <configuration>
                         <warSourceDirectory>src/webapp</warSourceDirectory>
                         <warName>spring_mvc</warName>

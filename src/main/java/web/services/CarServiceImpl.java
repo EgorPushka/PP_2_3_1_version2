@@ -3,7 +3,7 @@ package web.services;
 import org.springframework.stereotype.Service;
 import web.dao.CarDao;
 
-import web.model.Car;
+import web.models.Car;
 
 import java.util.List;
 
