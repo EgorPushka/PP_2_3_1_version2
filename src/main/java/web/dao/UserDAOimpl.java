@@ -24,21 +24,25 @@ public class UserDAOimpl implements UserDAO {
     }
 
     @Override
+    @Transactional
     public void add(User user) {
-
+        manager.persist(user);
     }
 
     @Override
+    @Transactional
     public void delete(User user) {
-
+        manager.remove(manager.contains(user) ? user : manager.merge(user));
     }
 
     @Override
+    @Transactional
     public void edit(User user) {
 
     }
 
     @Override
+    @Transactional
     public User getById(int id) {
         return null;
     }

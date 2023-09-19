@@ -5,11 +5,22 @@
     <meta charset="UTF-8">
     <title>USERS HTML</title>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
         table {
             width: 50%; /* Ширина таблицы */
             background: red; /* Цвет фона таблицы */
             color: black; /* Цвет текста */
             border-spacing: 2px; /* Расстояние между ячейками */
+            margin: 0 auto;
         }
 
         td, th {
@@ -22,6 +33,11 @@
         button {
             width: 50px;
             height: 20px;
+        }
+
+        .add-user-link {
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -52,7 +68,7 @@
                 </form>
             </div>
             <div style="display: inline-block;">
-                <form th:method="DELETE" th:action="@{/user/{id}(id=${user.getId()})}">
+                <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
                     <button type="submit" value="Delete">Delete</button>
                 </form>
             </div>
@@ -60,6 +76,8 @@
         </td>
     </tr>
 </table>
-<h2><a href="/new">Add User</a></h2>
+<div class="add-user-link">
+    <h2 style="text-align: center"><a href="/users/new">Add User</a></h2>
+</div>
 </body>
 </html>

@@ -3,12 +3,13 @@ package web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import web.models.User;
 import web.services.UserServices;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
 public class UsersController {
 
 	private final UserServices userServices;
+
+    private static final String REDIRECT_USERS_LIST_PAGE = "redirect:/users";
 
     @Autowired
     public UsersController(UserServices userServices) {
@@ -36,6 +39,21 @@ public class UsersController {
         return view;
     }
 
+    @GetMapping("/users/new")
+    public String newUser(@ModelAttribute("user") User user) {
+        return "/new";
+    }
+    @PostMapping("/users")
+    public String addUser(@ModelAttribute("user") @Valid User user,
+                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "new";
+        }
+        userServices.add(user);
+        return REDIRECT_USERS_LIST_PAGE;
+    }
+
+
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView editPage() {
         ModelAndView modelAndView = new ModelAndView();
@@ -43,5 +61,12 @@ public class UsersController {
         return modelAndView;
     }
 
+
+    @DeleteMapping("/users/{id}")
+    public String deleteUser(@ModelAttribute("user") User user,
+                             @PathVariable("id") int id) {
+        userServices.delete(user);
+        return REDIRECT_USERS_LIST_PAGE;
+    }
 
 }
