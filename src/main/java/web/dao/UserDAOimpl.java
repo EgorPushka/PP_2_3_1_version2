@@ -1,9 +1,13 @@
 package web.dao;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Repository;
 import web.models.User;
 
 import java.util.List;
 
+@Repository
+@ComponentScan(value = "web")
 public class UserDAOimpl implements UserDAO{
 
     @Override
@@ -30,4 +34,5 @@ public class UserDAOimpl implements UserDAO{
     public User getById(int id) {
         return null;
     }
+
 }

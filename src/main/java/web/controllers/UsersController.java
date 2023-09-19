@@ -1,11 +1,13 @@
 package web.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import web.services.UserServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,23 +15,33 @@ import java.util.List;
 @Controller
 public class UsersController {
 
-	@GetMapping(value = "/")
-	public String indexUsers(ModelMap model) {
-		List<String> messages = new ArrayList<>();
-		messages.add("Hello!");
-		messages.add("I'm Spring MVC / Hibernate App");
-		messages.add("5.2.0 version by sep'19 ");
-		model.addAttribute("messages", messages);
-		return "users";
-	}
+	private final UserServices userServices;
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editPage() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("edit");
-		return modelAndView;
-	}
+    @Autowired
+    public UsersController(UserServices userServices) {
+        this.userServices = userServices;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String helloPage() {
+        return "index";
+    }
 
 
-	
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public ModelAndView indexUsers() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("users");
+        view.addObject("users", userServices.indexUsers());
+        return view;
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public ModelAndView editPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("edit");
+        return modelAndView;
+    }
+
+
 }
