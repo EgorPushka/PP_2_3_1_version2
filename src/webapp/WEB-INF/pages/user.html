@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>USERS HTML</title>
+    <title>User</title>
     <style>
+
         body {
             display: flex;
             flex-direction: column;
@@ -20,7 +21,6 @@
             background: red; /* Цвет фона таблицы */
             color: black; /* Цвет текста */
             border-spacing: 2px; /* Расстояние между ячейками */
-            margin: 0 auto;
         }
 
         td, th {
@@ -34,49 +34,32 @@
             width: 50px;
             height: 20px;
         }
-
         .add-user-link {
             text-align: center;
             margin-top: 10px;
         }
+
     </style>
 </head>
-
 <body>
 <table>
-    <caption>User List</caption>
     <tr>
+        <th>Use_Id</th>
         <th>Name</th>
         <th>Age</th>
-        <th>Action</th>
+        <th>Email</th>
     </tr>
-    <tr th:each="user : ${users}">
-
+    <tr th:object="${user}">
+        <td th:text="${user.getId()}"></td>
         <td th:text="${user.getName()}"></td>
         <td th:text="${user.getAge()}"></td>
-        <td>
-            <div style="display: inline-block;">
-                <form th:method="GET" th:action="@{/users/{id}(id=${user.getId()})}">
-                    <button type="submit" value="Detail">Detail</button>
-                </form>
-            </div>
-
-            <div style="display: inline-block;">
-                <form th:method="GET" th:action="@{/users/{id}/edit(id=${user.getId()})}">
-                    <button type="submit" value="Edit">Edit</button>
-                </form>
-            </div>
-            <div style="display: inline-block;">
-                <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
-                    <button type="submit" value="Delete">Delete</button>
-                </form>
-            </div>
-
-        </td>
+        <td th:text="${user.getEmail()}"></td>
     </tr>
 </table>
+
 <div class="add-user-link">
-    <h2 style="text-align: center"><a href="/users/new">Add User</a></h2>
+    <h2 style="text-align: center"><a href="/users">Add User</a></h2>
 </div>
+
 </body>
 </html>

@@ -44,7 +44,7 @@ public class UserDAOimpl implements UserDAO {
     @Override
     @Transactional
     public User getById(int id) {
-        return null;
+        return manager.find(User.class,id);
     }
 
 }

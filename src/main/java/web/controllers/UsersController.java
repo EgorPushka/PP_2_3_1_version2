@@ -2,6 +2,7 @@ package web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +44,9 @@ public class UsersController {
     public String newUser(@ModelAttribute("user") User user) {
         return "/new";
     }
+
     @PostMapping("/users")
-    public String addUser(@ModelAttribute("user") @Valid User user,
-                          BindingResult bindingResult) {
+    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "new";
         }
@@ -61,6 +62,11 @@ public class UsersController {
         return modelAndView;
     }
 
+    @GetMapping("/users/{id}")
+    public String getById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userServices.getById(id));
+        return "/user";
+    }
 
     @DeleteMapping("/users/{id}")
     public String deleteUser(@ModelAttribute("user") User user,
