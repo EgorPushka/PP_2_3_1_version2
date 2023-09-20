@@ -38,7 +38,7 @@ public class UserDAOimpl implements UserDAO {
     @Override
     @Transactional
     public void edit(User user) {
-
+        manager.merge(user);
     }
 
     @Override

@@ -46,13 +46,13 @@ public class HibernateCfg {
         ds.setUsername(env.getRequiredProperty("db.username"));
         ds.setPassword(env.getRequiredProperty("db.password"));
 
-//        ds.setInitialSize(Integer.parseInt(env.getRequiredProperty("initSize")));
-//        ds.setMinIdle(Integer.parseInt(env.getRequiredProperty("minIdle")));
-//        ds.setMaxIdle(Integer.parseInt(env.getRequiredProperty("maxIdle")));
-//        ds.setTimeBetweenEvictionRunsMillis(Long.parseLong(env.getRequiredProperty("timeBtwEvictRunsMills")));
-//        ds.setMinEvictableIdleTimeMillis(Long.parseLong(env.getRequiredProperty("minEvicTimeIdleMills")));
-//        ds.setTestOnBorrow(Boolean.parseBoolean(env.getRequiredProperty("testOnBorrow")));
-//        ds.setValidationQuery(env.getRequiredProperty("validationQuery"));
+        ds.setInitialSize(Integer.parseInt(env.getRequiredProperty("initSize")));
+        ds.setMinIdle(Integer.parseInt(env.getRequiredProperty("minIdle")));
+        ds.setMaxIdle(Integer.parseInt(env.getRequiredProperty("maxIdle")));
+        ds.setTimeBetweenEvictionRunsMillis(Long.parseLong(env.getRequiredProperty("timeBtwEvictRunsMills")));
+        ds.setMinEvictableIdleTimeMillis(Long.parseLong(env.getRequiredProperty("minEvicTimeIdleMills")));
+        ds.setTestOnBorrow(Boolean.parseBoolean(env.getRequiredProperty("testOnBorrow")));
+        ds.setValidationQuery(env.getRequiredProperty("validationQuery"));
         return ds;
     }
 

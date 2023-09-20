@@ -6,18 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import web.models.User;
 import web.services.UserServices;
-
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class UsersController {
 
-	private final UserServices userServices;
+    private final UserServices userServices;
 
     private static final String REDIRECT_USERS_LIST_PAGE = "redirect:/users";
 
@@ -26,22 +22,20 @@ public class UsersController {
         this.userServices = userServices;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public String helloPage() {
         return "index";
     }
 
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public ModelAndView indexUsers() {
-        ModelAndView view = new ModelAndView();
-        view.setViewName("users");
-        view.addObject("users", userServices.indexUsers());
-        return view;
+    @GetMapping(value = "/users")
+    public String indexUsers(ModelMap modelMap) {
+        modelMap.addAttribute("users", userServices.indexUsers());
+        return "users";
     }
 
     @GetMapping("/users/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
         return "/new";
     }
 
@@ -54,14 +48,6 @@ public class UsersController {
         return REDIRECT_USERS_LIST_PAGE;
     }
 
-
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public ModelAndView editPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("edit");
-        return modelAndView;
-    }
-
     @GetMapping("/users/{id}")
     public String getById(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServices.getById(id));
@@ -69,9 +55,23 @@ public class UsersController {
     }
 
     @DeleteMapping("/users/{id}")
-    public String deleteUser(@ModelAttribute("user") User user,
-                             @PathVariable("id") int id) {
-        userServices.delete(user);
+    public String deleteUser(@PathVariable("id") int id) {
+        userServices.delete(userServices.getById(id));
+        return REDIRECT_USERS_LIST_PAGE;
+    }
+
+    @GetMapping("/users/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userServices.getById(id));
+        return "/edit";
+    }
+
+    @PatchMapping("/users/{id}")
+    public String editUser(@Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "/edit";
+        }
+        userServices.edit(user);
         return REDIRECT_USERS_LIST_PAGE;
     }
 

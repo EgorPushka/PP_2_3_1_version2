@@ -6,7 +6,8 @@ create table if not exists users
     user_email varchar(50) not null
 )
     collate 'utf8_general_ci';
-create unique index user_name_index ON users (user_name);
+# create unique index user_name_index ON users (user_name);
+create unique index user_id_index ON users (id);
 
 insert ignore into users (user_name, user_age, user_email)
 values ("Luke Skywalker", 23, "luke.skywalker@gmail.com"),
