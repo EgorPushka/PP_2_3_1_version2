@@ -22,6 +22,7 @@ public class UsersController {
         this.userServices = userServices;
     }
 
+
     @GetMapping(value = "/")
     public String helloPage() {
         return "index";

@@ -1,8 +1,11 @@
 package web.config;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import web.services.UserServices;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
@@ -13,7 +16,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{
-                HibernateCfg.class
+                HibernateCfg.class,
         };
     }
 
@@ -52,4 +55,5 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         context.addFilter("hiddenHttpMethodFilter",
                 new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
     }
+
 }

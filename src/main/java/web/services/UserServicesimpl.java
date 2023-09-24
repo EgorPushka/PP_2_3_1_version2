@@ -3,10 +3,11 @@ package web.services;
 import org.springframework.stereotype.Service;
 import web.dao.UserDAO;
 import web.models.User;
+
 import java.util.List;
 
 @Service
-public class UserServicesimpl implements UserServices {
+public class UserServicesimpl implements UserServices{
 
     private final UserDAO userDAO;
 
