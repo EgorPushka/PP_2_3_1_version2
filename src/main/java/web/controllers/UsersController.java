@@ -11,6 +11,7 @@ import web.services.UserServices;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/users")
 public class UsersController {
 
     private final UserServices userServices;
@@ -22,25 +23,19 @@ public class UsersController {
         this.userServices = userServices;
     }
 
-
-    @GetMapping(value = "/")
-    public String helloPage() {
-        return "index";
-    }
-
-    @GetMapping(value = "/users")
+    @GetMapping()
     public String indexUsers(ModelMap modelMap) {
         modelMap.addAttribute("users", userServices.indexUsers());
         return "users";
     }
 
-    @GetMapping("/users/new")
+    @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         return "/new";
     }
 
-    @PostMapping("/users")
+    @PostMapping()
     public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "new";
@@ -49,25 +44,25 @@ public class UsersController {
         return REDIRECT_USERS_LIST_PAGE;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public String getById(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServices.getById(id));
         return "/user";
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") int id) {
         userServices.delete(userServices.getById(id));
         return REDIRECT_USERS_LIST_PAGE;
     }
 
-    @GetMapping("/users/{id}/edit")
+    @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServices.getById(id));
         return "/edit";
     }
 
-    @PatchMapping("/users/{id}")
+    @PatchMapping("/{id}")
     public String editUser(@Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "/edit";
